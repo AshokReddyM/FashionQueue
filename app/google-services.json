@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "778368209938",
+    "firebase_url": "https://renting-a45c2.firebaseio.com",
+    "project_id": "renting-a45c2",
+    "storage_bucket": "renting-a45c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778368209938:android:a02661c96146ce7b",
+        "android_client_info": {
+          "package_name": "com.fashionqueue.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778368209938-vsi56g00pve3nqsrgmefrpggh33tjhh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXuo2-YZM23FPRa0iZxvqTImj_LAzqRn8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
