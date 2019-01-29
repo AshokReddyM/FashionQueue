@@ -12,6 +12,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.fashionqueue.app.R;
@@ -27,11 +28,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
+    private String TAG = "1";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_login);
 
 
@@ -39,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.buttonFacebookLogin);
+        LoginButton loginButton = findViewById(R.id.btn_facebook);
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -51,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                // ...
             }
 
             @Override
@@ -93,6 +97,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void updateUI(FirebaseUser user) {
     }
 
 

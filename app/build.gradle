@@ -30,6 +30,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:11.6.0'
     implementation 'com.facebook.android:facebook-login:[4,5)'
 
+    //butterknife
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
 
 }
 

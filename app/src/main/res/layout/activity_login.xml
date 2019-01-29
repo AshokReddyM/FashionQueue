@@ -5,41 +5,44 @@
 
     <LinearLayout
         android:id="@+id/login_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
-
-        <ImageButton
             android:id="@+id/login_google"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/google" />
+            android:layout_marginTop="15dp"
+            android:background="@drawable/google_bg"
+            android:drawableStart="@drawable/googleg_standard_color_18"
+            android:padding="15dp"
+            android:text="@string/login_with_google" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/login_facebook"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/com_facebook_button_icon" />
+            android:background="@drawable/fb_bg"
+            android:drawableStart="@drawable/com_facebook_button_icon_white"
+            android:padding="15dp"
+            android:text="@string/login_with_facebook" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/login_twitter"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/twitter" />
+            android:background="@drawable/twitter_bg"
+            android:drawableStart="@drawable/twitter_bg"
+            android:padding="15dp"
+            android:src="@drawable/ic_twitter_logo"
+            android:text="Login with Twitter" />
     </LinearLayout>
 
     <ProgressBar
@@ -48,4 +51,11 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/btn_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
 </RelativeLayout>
