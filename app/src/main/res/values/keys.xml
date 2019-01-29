@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="firebase_url">https://renting-a45c2.firebaseio.com/</string>
+    <string name="facebook_app_id">745562772493461</string>
+
+</resources>
