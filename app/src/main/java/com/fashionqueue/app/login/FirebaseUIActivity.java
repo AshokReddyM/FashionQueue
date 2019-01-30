@@ -2,7 +2,6 @@ package com.fashionqueue.app.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,16 +12,16 @@ import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
 import java.util.Collections;
+
 
 /**
  * Demonstrate authentication using the FirebaseUI-Android library. This activity demonstrates
  * using FirebaseUI for basic email/password sign in.
- *
+ * <p>
  * For more information, visit https://github.com/firebase/firebaseui-android
  */
-public class FirebaseUIActivity extends AppCompatActivity implements View.OnClickListener {
+public class FirebaseUIActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 9001;
 

@@ -2,7 +2,6 @@ package com.fashionqueue.app.login;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -12,7 +11,6 @@ import com.fashionqueue.app.R;
 
 public class BaseActivity extends AppCompatActivity {
 
-    @VisibleForTesting
     public ProgressDialog mProgressDialog;
 
     public void showProgressDialog() {

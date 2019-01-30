@@ -17,7 +17,6 @@ package com.fashionqueue.app.login;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -30,11 +29,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 /**
  * Demonstrate Firebase Authentication using a custom minted token. For more information, see:
  * https://firebase.google.com/docs/auth/android/custom-auth
  */
-public class CustomAuthActivity extends AppCompatActivity implements View.OnClickListener {
+public class CustomAuthActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "CustomAuthActivity";
 

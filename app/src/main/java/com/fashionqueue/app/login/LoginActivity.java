@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -195,41 +196,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
 
-    private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount:" + email);
-        if (!validateForm()) {
-            return;
-        }
-
-        showProgressDialog();
-
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // [START_EXCLUDE]
-                        hideProgressDialog();
-                        // [END_EXCLUDE]
-                    }
-                });
-        // [END create_user_with_email]
-    }
-
-
     private boolean validateForm() {
         boolean valid = true;
 
@@ -292,6 +258,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
+        Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -305,6 +272,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.google_login_button:
                 TAG = "GoogleLogin";
                 signIn();
+                break;
+            case R.id.emailCreateAccountButton:
+                TAG = "GoogleLogin";
+                startActivity(new Intent(LoginActivity.this, SignupEmailAddress.class));
                 break;
             case R.id.buttonFacebookSignout:
                 signOut();
