@@ -1,11 +1,15 @@
 package com.fashionqueue.app.login;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +37,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -72,6 +79,23 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         googleLoginButton = findViewById(R.id.signInButton);
         googleButton.setOnClickListener(this);
 
+        // Add code to print out the key hash
+        try {
+            PackageInfo info;
+            info = getPackageManager().getPackageInfo(
+                    "com.fashionqueue.app",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+
         //facebook
         fbButton.setOnClickListener(this);
         googleButton.setOnClickListener(this);
@@ -92,6 +116,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onError(FacebookException error) {
+                Log.d("facebook login",error.toString());
                 updateUI(null);
             }
         });
@@ -183,7 +208,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -258,7 +282,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-        Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show();
+    if(user!=null) {
+        Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
+        signOut();
+    }
     }
 
     @Override

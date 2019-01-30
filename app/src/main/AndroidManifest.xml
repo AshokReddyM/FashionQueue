@@ -17,13 +17,10 @@
         <activity
             android:name=".login.CustomAuthActivity"
             android:label="@string/label_custom_auth" />
-
         <activity
             android:name=".login.EmailPasswordActivity"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
-
         <activity
             android:name=".login.AnonymousAuthActivity"
             android:label="@string/label_anonymous_auth" />
@@ -41,35 +38,40 @@
             tools:replace="android:value" />
 
         <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            tools:replace="android:theme" />
-        <activity
             android:name=".login.LoginActivity"
             android:theme="@style/NoActionBar">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <data
-                    android:host="your-project-id.firebaseapp.com"
+                    android:host="renting-a45c2.firebaseapp.com"
                     android:scheme="https" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
-
-
             </intent-filter>
         </activity>
         <activity
             android:name=".login.SignupEmailAddress"
             android:theme="@style/NoActionBar" />
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            tools:replace="android:theme" />
+        <activity android:name=".landing_page.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
