@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#039BE5</color>
-    <color name="colorPrimaryDark">#0288D1</color>
-    <color name="colorAccent">#FFA000</color>
+    <color name="primary_color">#489f4c</color>
+    <color name="dark_primary_color">#388E3C</color>
+    <color name="accent_color">#FF5722</color>
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+
+    <color name="login_primary">#009688</color>
+    <color name="login_primary_dark">#00796B</color>
+    <color name="login_primary_darker">#00695C</color>
+    <color name="login_accent">#FFFFFF</color>
+    <color name="iron">#CCCCCC</color>
+
+    <color name="card_background">#efefef</color>
+    <color name="facebook_brand_color">#3B5998</color>
+    <color name="google_plus_brand_color">#dc4e41</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+
+
 </resources>

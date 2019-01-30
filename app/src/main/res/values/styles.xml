@@ -1,11 +1,35 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_color</item>
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="android:windowBackground">@color/primary_color</item>
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/iron</item>
+        <item name="colorButtonNormal">@color/dark_primary_color</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop" />
     </style>
+
+    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/dark_primary_color</item>
+        <item name="colorAccent">@color/accent_color</item>
+        <item name="android:windowBackground">@color/primary_color</item>
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/iron</item>
+        <item name="colorButtonNormal">@color/dark_primary_color</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop" />
+    </style>
+
+
+
+
 
     <!-- Activity with no Title -->
     <style name="ThemeOverlay.MyNoTitleActivity" parent="AppTheme">
@@ -23,7 +47,7 @@
     </style>
 
     <!-- Light EditTexts -->
-    <style name="ThemeOverlay.MyLightEditText" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="ThemeOverlay.MyLightEditText" parent="ThemeOverlay.AppCompat.Dark" />
 
     <style name="ThemeOverlay.MyTextDetail" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>
