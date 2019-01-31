@@ -1,5 +1,6 @@
 package com.fashionqueue.app.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.landing_page.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -86,6 +88,8 @@ public class SignupEmailAddress extends BaseActivity implements View.OnClickList
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Toast.makeText(this, "Ola..Registed successfully", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SignupEmailAddress.this, MainActivity.class));
+            finish();
         }
 
     }

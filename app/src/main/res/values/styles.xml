@@ -7,8 +7,6 @@
         <item name="colorAccent">@color/accent_color</item>
         <item name="android:windowBackground">@color/primary_color</item>
         <item name="colorControlNormal">@color/iron</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
         <item name="android:textColorHint">@color/iron</item>
         <item name="colorButtonNormal">@color/dark_primary_color</item>
         <item name="android:colorButtonNormal" tools:targetApi="lollipop" />
@@ -20,8 +18,6 @@
         <item name="colorAccent">@color/accent_color</item>
         <item name="android:windowBackground">@color/primary_color</item>
         <item name="colorControlNormal">@color/iron</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
         <item name="android:textColorHint">@color/iron</item>
         <item name="colorButtonNormal">@color/dark_primary_color</item>
         <item name="android:colorButtonNormal" tools:targetApi="lollipop" />

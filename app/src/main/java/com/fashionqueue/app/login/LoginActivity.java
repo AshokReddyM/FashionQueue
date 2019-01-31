@@ -13,6 +13,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -23,6 +24,8 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.landing_page.MainActivity;
+import com.fashionqueue.app.utils.UiUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,6 +44,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -58,10 +64,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private TextInputEditText mPasswordField;
 
 
+    @BindView(R.id.tv_forgot_password)
+    TextView forgotPassword;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
@@ -71,6 +82,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         findViewById(R.id.emailSignInButton).setOnClickListener(this);
         findViewById(R.id.emailCreateAccountButton).setOnClickListener(this);
+
+        forgotPassword.setOnClickListener(this);
 
 
         Button fbButton = findViewById(R.id.facebook_login_button);
@@ -116,7 +129,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onError(FacebookException error) {
-                Log.d("facebook login",error.toString());
+                Log.d("facebook login", error.toString());
                 updateUI(null);
             }
         });
@@ -182,6 +195,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -193,7 +208,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         }
 
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -257,6 +271,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
+                            hideProgressDialog();
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             updateUI(null);
@@ -276,16 +291,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void signOut() {
         mAuth.signOut();
         LoginManager.getInstance().logOut();
-
         updateUI(null);
     }
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-    if(user!=null) {
-        Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
-        signOut();
-    }
+        if (user != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
+            signOut();
+        }
     }
 
     @Override
@@ -295,21 +310,28 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.facebook_login_button:
                 TAG = "FacebookLogin";
                 loginButton.performClick();
+                UiUtils.hideKeyboard(LoginActivity.this);
                 break;
             case R.id.google_login_button:
                 TAG = "GoogleLogin";
                 signIn();
+                UiUtils.hideKeyboard(LoginActivity.this);
                 break;
             case R.id.emailCreateAccountButton:
                 TAG = "GoogleLogin";
                 startActivity(new Intent(LoginActivity.this, SignupEmailAddress.class));
+                UiUtils.hideKeyboard(LoginActivity.this);
                 break;
             case R.id.buttonFacebookSignout:
                 signOut();
                 break;
             case R.id.emailSignInButton:
                 signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+                UiUtils.hideKeyboard(LoginActivity.this);
                 break;
+
+            case R.id.tv_forgot_password:
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         }
     }
 }
