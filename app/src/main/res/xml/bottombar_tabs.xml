@@ -1,0 +1,21 @@
+<tabs>
+    <tab
+        icon="@drawable/ic_home"
+        id="@+id/tab_home"
+        title="Home" />
+    <tab
+        icon="@drawable/ic_fav"
+        id="@+id/tab_fav"
+        title="Favorites" />
+    <tab
+        icon="@drawable/ic_offers"
+        id="@+id/tab_offers"
+        title="Offers" />
+
+    <tab
+        icon="@drawable/ic_account"
+        id="@+id/tab_profile"
+        title="Profile" />
+
+
+</tabs>

@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.fashionqueue.app.R;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -21,6 +23,12 @@ public class BaseActivity extends AppCompatActivity {
 
         mProgressDialog.show();
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {

@@ -3,12 +3,12 @@ package com.fashionqueue.app.login;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.fashionqueue.app.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,6 +37,10 @@ public class ForgotPasswordActivity extends BaseActivity implements View.OnClick
         ButterKnife.bind(this);
 
         submit.setOnClickListener(this);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

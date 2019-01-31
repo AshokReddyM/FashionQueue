@@ -95,7 +95,7 @@
     <string name="sign_in_facebook">Sign in with Facebook</string>
     <string name="sign_in_google">Sign in with Google</string>
     <string name="logout_text">Sign out</string>
-    <string name="sign_up_button">No account yet? Create one</string>
+    <string name="sign_up_button">No account yet?</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -114,10 +114,19 @@
     <string name="password">Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="email_address">Email Address</string>
-    <string name="forgot_password_click_me">Forgot password? click me</string>
+    <string name="forgot_password_click_me">Forgot password?</string>
     <string name="opps_sww">Something went wrong!</string>
     <string name="reset_password">Reset link sent to your register email address !</string>
-    <string name="enter_password_to_reset">Enter password to reset</string>
+    <string name="enter_password_to_reset">Please enter password to reset !</string>
+
+
+    <!--custom fonts-->
+    <string name="font_semi_bold">fonts/nunito_sans_semi_bold.ttf</string>
+    <string name="font_light">fonts/nunito_sans_light.ttf</string>
+    <string name="font_bold">fonts/nunito_sans_bold.ttf</string>
+    <string name="font_regular">fonts/nunito_sans_regular.ttf</string>
+    <string name="register_account">Please Register Account!</string>
+    <string name="confirm_password">Confirm Password</string>
 
 
 </resources>

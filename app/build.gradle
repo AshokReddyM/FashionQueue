@@ -55,6 +55,11 @@ dependencies {
     // Used in FacebookLoginActivity.
     implementation 'com.facebook.android:facebook-login:4.40.0'
 
+    //font
+    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+
+    implementation 'com.roughike:bottom-bar:2.3.1'
+
 
 }
 
