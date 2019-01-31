@@ -22,7 +22,6 @@
             android:name=".login.EmailPasswordActivity"
             android:label="@string/label_emailpassword"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".login.FirebaseUIActivity"
             android:label="@string/label_firebase_ui" />
@@ -73,8 +72,8 @@
             android:name=".login.ForgotPasswordActivity"
             android:theme="@style/NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-
         <activity android:name=".login.BaseActivity" />
+        <activity android:name=".gender.GenderActivity"></activity>
     </application>
 
 </manifest>
