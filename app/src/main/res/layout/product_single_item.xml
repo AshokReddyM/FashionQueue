@@ -1,76 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#e6e6e6"
     android:orientation="vertical"
     android:padding="1dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:orientation="vertical"
         android:padding="1.5dp">
 
-        <ImageView
-            android:id="@+id/picture"
-            android:layout_width="150dp"
-            android:layout_height="250dp"
-            android:layout_gravity="top|center"
-            android:padding="5dp"
-            android:src="@drawable/product" />
+        <FrameLayout
+            android:id="@+id/product_image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <ImageView
+                android:id="@+id/product_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/product" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end|bottom"
+                android:background="@drawable/rectangle_gray_background"
+                android:padding="10dp"
+                android:src="@drawable/ic_favorite" />
+
+
+        </FrameLayout>
+
 
         <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
+            android:layout_below="@id/product_image_layout"
             android:background="#e6e6e6" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal">
+            android:layout_below="@id/divider"
+            android:layout_gravity="bottom|center_horizontal"
+            android:padding="10dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/product_title"
+                fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="2dp"
-                android:text="New Text" />
+                android:maxLines="3"
+                android:text="Neck Solid Bomber Jacket Online (Dark Green, L)"
+                android:textColor="@color/material_black"
+                tools:ignore="MissingPrefix" />
 
             <TextView
-                android:id="@+id/textView2"
+                fontPath="@string/font_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:text="New Text" />
+                android:layout_below="@id/product_title"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:text="₹ 1,499"
+                android:textColor="@color/colorAccent"
+                tools:ignore="MissingPrefix" />
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView2"
-                android:text="New Text" />
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="@style/Widget.AppCompat.RatingBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView2"
-                android:rating="3" />
+                android:layout_below="@id/product_title"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangle_accent_background"
+                android:padding="5dp"
+                android:text="Add to cart"
+                android:textColor="@color/primary_color"
+                tools:ignore="MissingPrefix" />
 
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
