@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
 
-    @BindView(R.id.toolbar)
+    @BindView(R.id.toolbar_main)
     Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)
@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-        drawerLayout.addDrawerListener(actionBarDrawerToggle
-        );
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                drawerLayout.openDrawer(Gravity.LEFT);
             }
         });
 
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
 
         int tabId = getIntent().getIntExtra("fragment_id", 0);
         bottomBar.setDefaultTabPosition(tabId);
