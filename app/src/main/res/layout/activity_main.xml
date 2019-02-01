@@ -6,6 +6,10 @@
     android:orientation="vertical"
     tools:context=".landing_page.MainActivity">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
@@ -15,10 +19,12 @@
 
 
     <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:layout_above="@id/bottomBar">
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@id/toolbar"
+        android:background="@color/white">
 
     </FrameLayout>
 

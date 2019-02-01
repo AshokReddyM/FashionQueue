@@ -127,6 +127,10 @@
     <string name="font_regular">fonts/nunito_sans_regular.ttf</string>
     <string name="register_account">Please Register Account!</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="hey_you_re">Hey! You\'re...?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
