@@ -136,6 +136,8 @@
     //drawer
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Closed</string>
+    <string name="sofware_engineer">Sofware Engineer</string>
+    <string name="ashok_reddy_m">Ashok Reddy M</string>
 
 
 </resources>
