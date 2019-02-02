@@ -28,7 +28,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Prod
     public ProductsAdapterVH onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         context = parent.getContext();
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_single_item, parent, false);
+                .inflate(R.layout.favorite_single_item, parent, false);
         return new ProductsAdapterVH(itemView);
     }
 
@@ -39,7 +39,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Prod
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 3;
     }
 
     public class ProductsAdapterVH extends RecyclerView.ViewHolder {

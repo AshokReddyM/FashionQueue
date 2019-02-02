@@ -1,5 +1,7 @@
 package com.fashionqueue.app.landing_page;
 
+import android.app.Notification;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +21,7 @@ import com.fashionqueue.app.landing_page.fragments.fav.FavoritesListFragment;
 import com.fashionqueue.app.landing_page.fragments.home.fragment.HomeFragment;
 import com.fashionqueue.app.landing_page.fragments.offers.OffersFragment;
 import com.fashionqueue.app.landing_page.fragments.profile.ProfileFragment;
+import com.fashionqueue.app.notifications.NotificationsActivity;
 import com.fashionqueue.app.utils.SharedPrefUtil;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -115,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_notifications:
+                startActivity(new Intent(MainActivity.this, NotificationsActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -122,7 +129,9 @@ public class MainActivity extends AppCompatActivity {
         // Create new fragment and transaction
         getSupportFragmentManager()
                 .beginTransaction()
+/*
                 .setCustomAnimations(R.anim.enter_animation, R.anim.exit_animation)
+*/
                 .replace(R.id.container, fragment)
                 .commit();
     }

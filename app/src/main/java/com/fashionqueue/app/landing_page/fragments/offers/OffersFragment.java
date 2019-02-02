@@ -4,7 +4,7 @@ package com.fashionqueue.app.landing_page.fragments.offers;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +12,10 @@ import android.view.ViewGroup;
 
 import com.fashionqueue.app.R;
 import com.fashionqueue.app.data.modals.Product;
-import com.fashionqueue.app.landing_page.fragments.home.adapter.ProductsAdapter;
+import com.fashionqueue.app.landing_page.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +27,7 @@ public class OffersFragment extends Fragment {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    private ProductsAdapter mAdapter;
+    private OffersAdapter mAdapter;
 
     ArrayList<Product> productArrayList;
 
@@ -46,14 +47,21 @@ public class OffersFragment extends Fragment {
 
         productArrayList = new ArrayList<>();
 
-        mAdapter = new ProductsAdapter(productArrayList);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
+        mAdapter = new OffersAdapter(productArrayList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
 
         return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((MainActivity) Objects.requireNonNull(getActivity())).toolbar.setTitle("Offers");
     }
 
 }
