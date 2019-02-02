@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
 
-    @BindView(R.id.toolbar_main)
+    @BindView(R.id.toolbar)
+    public
     Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.activity_main_drawer, menu);
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 

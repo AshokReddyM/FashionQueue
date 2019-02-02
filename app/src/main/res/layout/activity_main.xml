@@ -9,20 +9,23 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:background="#e7e7e8"
         tools:context=".landing_page.MainActivity">
 
 
-        <include
+        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            layout="@layout/app_bar_main" />
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?android:attr/colorPrimary"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
         <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/toolbar"
             app:bb_tabXmlResource="@xml/bottombar_tabs" />
 
 
@@ -32,7 +35,7 @@
             android:layout_height="match_parent"
             android:layout_above="@id/bottomBar"
             android:layout_below="@id/toolbar"
-            android:background="@color/white">
+            android:background="#212121">
 
         </FrameLayout>
 
