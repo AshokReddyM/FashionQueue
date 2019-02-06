@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.base.BaseActivity;
 import com.fashionqueue.app.landing_page.MainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

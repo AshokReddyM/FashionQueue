@@ -129,9 +129,7 @@ public class MainActivity extends AppCompatActivity {
         // Create new fragment and transaction
         getSupportFragmentManager()
                 .beginTransaction()
-/*
-                .setCustomAnimations(R.anim.enter_animation, R.anim.exit_animation)
-*/
+                .setCustomAnimations(R.anim.rigt_to_left_anim, R.anim.left_to_right_anim)
                 .replace(R.id.container, fragment)
                 .commit();
     }

@@ -1,4 +1,4 @@
-package com.fashionqueue.app.login;
+package com.fashionqueue.app.login.login_activity;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -25,6 +25,9 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.fashionqueue.app.R;
 import com.fashionqueue.app.landing_page.MainActivity;
+import com.fashionqueue.app.base.BaseActivity;
+import com.fashionqueue.app.login.ForgotPasswordActivity;
+import com.fashionqueue.app.login.SignupEmailAddress;
 import com.fashionqueue.app.utils.UiUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -48,7 +51,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClickListener {
 
 
     private static String TAG = null;
@@ -298,8 +301,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         hideProgressDialog();
         if (user != null) {
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            Toast.makeText(this, user.toString(), Toast.LENGTH_SHORT).show();
-            signOut();
+            overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
+            Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -333,5 +336,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_forgot_password:
                 startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         }
+    }
+
+    @Override
+    public void onUserDbCreate() {
+
+    }
+
+    @Override
+    public void onUserDbCreateFailure() {
+
     }
 }

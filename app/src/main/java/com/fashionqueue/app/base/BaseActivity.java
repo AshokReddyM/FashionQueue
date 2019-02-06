@@ -1,4 +1,4 @@
-package com.fashionqueue.app.login;
+package com.fashionqueue.app.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;

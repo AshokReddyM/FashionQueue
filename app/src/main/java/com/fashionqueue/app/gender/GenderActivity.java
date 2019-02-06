@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import com.fashionqueue.app.R;
 import com.fashionqueue.app.landing_page.MainActivity;
-import com.fashionqueue.app.login.BaseActivity;
+import com.fashionqueue.app.base.BaseActivity;
 import com.fashionqueue.app.utils.SharedPrefUtil;
 
 import butterknife.BindView;

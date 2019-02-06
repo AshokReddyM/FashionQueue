@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.base.BaseActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.BuildConfig;
 import com.google.firebase.auth.FirebaseAuth;

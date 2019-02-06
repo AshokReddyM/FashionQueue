@@ -21,11 +21,13 @@ public abstract class Product implements Parcelable {
 
     public abstract String productDescription();
 
+    public abstract String productQuantity();
+
     public static Product create(String offer, String available_status, String product_type,
                                  String product_name, String product_id,
-                                 String product_price, String product_description) {
+                                 String product_price, String product_description,String product_quantity) {
         return new AutoValue_Product(offer, available_status, product_type, product_name,
-                product_id, product_price, product_description);
+                product_id, product_price, product_description,product_quantity);
     }
 
 
