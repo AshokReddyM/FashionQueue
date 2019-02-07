@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.data.modals.Product;
 import com.fashionqueue.app.notifications.adapter.NotificationsAdapter;
 
 import java.util.ArrayList;

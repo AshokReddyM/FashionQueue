@@ -24,10 +24,13 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.fashionqueue.app.R;
-import com.fashionqueue.app.landing_page.MainActivity;
 import com.fashionqueue.app.base.BaseActivity;
+import com.fashionqueue.app.data.FirebaseDataManager;
+import com.fashionqueue.app.interfaces.OnProfileCreateListener;
+import com.fashionqueue.app.landing_page.MainActivity;
 import com.fashionqueue.app.login.ForgotPasswordActivity;
 import com.fashionqueue.app.login.SignupEmailAddress;
+import com.fashionqueue.app.utils.SharedPrefUtil;
 import com.fashionqueue.app.utils.UiUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,6 +45,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.security.MessageDigest;
@@ -51,13 +55,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClickListener {
+public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClickListener, OnProfileCreateListener {
 
-
-    private static String TAG = null;
     private static final int RC_SIGN_IN = 9001;
-
-
+    private static String TAG = null;
+    @BindView(R.id.tv_forgot_password)
+    TextView forgotPassword;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
     private LoginButton loginButton;
@@ -65,11 +68,6 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
     private SignInButton googleLoginButton;
     private TextInputEditText mEmailField;
     private TextInputEditText mPasswordField;
-
-
-    @BindView(R.id.tv_forgot_password)
-    TextView forgotPassword;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,13 +145,12 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         // [END config_signin]
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
     }
 
 
@@ -225,6 +222,8 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -293,6 +292,7 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
 
     public void signOut() {
         mAuth.signOut();
+        FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
         updateUI(null);
     }
@@ -300,10 +300,18 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            overridePendingTransition(R.anim.enter_animation, R.anim.exit_animation);
-            Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
+            FirebaseUserMetadata metadata = mAuth.getCurrentUser().getMetadata();
+            if (metadata.getCreationTimestamp() == metadata.getLastSignInTimestamp()) {
+                FirebaseDataManager.createProfile(this, user.getUid(), user.getDisplayName(), "", 0, user.getPhoneNumber(), "", user.getEmail());
+            } else {
+                // This is an existing user, show them a welcome back screen.
+                SharedPrefUtil.setBooleanPreference(this, "isLoggedIn", true);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
+            }
         }
+
     }
 
     @Override
@@ -321,12 +329,9 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
                 UiUtils.hideKeyboard(LoginActivity.this);
                 break;
             case R.id.emailCreateAccountButton:
-                TAG = "GoogleLogin";
+                TAG = "emailLogin";
                 startActivity(new Intent(LoginActivity.this, SignupEmailAddress.class));
                 UiUtils.hideKeyboard(LoginActivity.this);
-                break;
-            case R.id.buttonFacebookSignout:
-                signOut();
                 break;
             case R.id.emailSignInButton:
                 signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
@@ -338,13 +343,20 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         }
     }
 
-    @Override
-    public void onUserDbCreate() {
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        signOut();
     }
 
-    @Override
-    public void onUserDbCreateFailure() {
 
+
+    @Override
+    public void onProfileCreated() {
+        SharedPrefUtil.setBooleanPreference(this, "isLoggedIn", true);
+        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
     }
 }

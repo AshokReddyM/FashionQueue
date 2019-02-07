@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.data.modals.Product;
 import com.fashionqueue.app.landing_page.MainActivity;
 
 import java.util.ArrayList;

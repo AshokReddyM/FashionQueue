@@ -35,12 +35,12 @@ public class GenderActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_male:
-                SharedPrefUtil.SharedPrefsUtils.setIntegerPreference(this, "gender_type", 0);
+                SharedPrefUtil.setIntegerPreference(this, "gender_type", 1);
                 startActivity(new Intent(GenderActivity.this, MainActivity.class));
                 finish();
                 break;
             case R.id.ll_female:
-                SharedPrefUtil.SharedPrefsUtils.setIntegerPreference(this, "gender_type", 1);
+                SharedPrefUtil.setIntegerPreference(this, "gender_type", 2);
                 startActivity(new Intent(GenderActivity.this, MainActivity.class));
                 finish();
                 break;

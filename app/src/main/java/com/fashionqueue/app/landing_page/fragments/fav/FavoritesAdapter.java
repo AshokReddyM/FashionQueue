@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.data.modals.Product;
 
 import java.util.ArrayList;
 

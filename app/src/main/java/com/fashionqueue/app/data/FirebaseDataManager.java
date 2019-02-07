@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.fashionqueue.app.data.modals.UserCreateObject;
+import com.fashionqueue.app.data.modals.Profile;
+import com.fashionqueue.app.interfaces.OnProfileCreateListener;
+import com.fashionqueue.app.login.login_activity.LoginActivity;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,16 +54,21 @@ public class FirebaseDataManager {
     }
 
 
-    public static void createUserDatabase(String userHashKey) {
-        UserCreateObject userCreateObject = new UserCreateObject("Profile", "Orders", "Offers", "Favorites");
-        database.getReference().child(userHashKey).setValue(userCreateObject, new DatabaseReference.CompletionListener() {
+    public static void createProfile(final LoginActivity loginActivity, String userHashKey, String first_name, String last_name, int gender, String mobile, String dob, String email) {
+        mDatabaseRef=database.getReference().child(userHashKey);
+        Profile profile=new Profile(first_name,last_name,mobile,gender,email,dob);
+        mDatabaseRef.child("profile").setValue(profile, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 if (databaseError != null) {
                 } else {
+                    ((OnProfileCreateListener)loginActivity).onProfileCreated();
                 }
             }
         });
+
+
+
     }
 }
 

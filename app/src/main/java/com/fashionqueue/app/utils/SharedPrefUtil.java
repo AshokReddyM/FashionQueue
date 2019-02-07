@@ -10,10 +10,6 @@ public class SharedPrefUtil {
     /**
      * A pack of helpful getter and setter methods for reading/writing to {@link SharedPreferences}.
      */
-    static final public class SharedPrefsUtils {
-        private SharedPrefsUtils() {
-        }
-
 
         public static String getStringPreference(Context context, String key) {
             String value = null;
@@ -117,4 +113,3 @@ public class SharedPrefUtil {
             return false;
         }
     }
-}

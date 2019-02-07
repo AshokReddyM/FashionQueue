@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.fashionqueue.app.R;
+import com.fashionqueue.app.base.BaseActivity;
 import com.fashionqueue.app.landing_page.fragments.fav.FavoritesListFragment;
 import com.fashionqueue.app.landing_page.fragments.home.fragment.HomeFragment;
 import com.fashionqueue.app.landing_page.fragments.offers.OffersFragment;
@@ -29,7 +30,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         bottomBar.setDefaultTabPosition(tabId);
 
 
-        int gender = SharedPrefUtil.SharedPrefsUtils.getIntegerPreference(this, "gender_type", -1);
+        int gender = SharedPrefUtil.getIntegerPreference(this, "gender_type", -1);
 
         if (gender == 0) {
             Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         // Create new fragment and transaction
         getSupportFragmentManager()
                 .beginTransaction()
-                .setCustomAnimations(R.anim.rigt_to_left_anim, R.anim.left_to_right_anim)
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.container, fragment)
                 .commit();
     }

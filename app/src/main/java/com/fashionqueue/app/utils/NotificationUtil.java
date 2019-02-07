@@ -10,8 +10,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 
-import com.byt_eye.tcadmin.landing_page.MainActivity;
-import com.byt_eye.tcadmin.R;
+import com.fashionqueue.app.R;
+import com.fashionqueue.app.landing_page.MainActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
