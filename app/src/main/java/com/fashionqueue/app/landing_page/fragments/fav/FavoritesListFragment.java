@@ -4,7 +4,6 @@ package com.fashionqueue.app.landing_page.fragments.fav;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fashionqueue.app.R;
-import com.fashionqueue.app.data.modals.Product;
 import com.fashionqueue.app.landing_page.MainActivity;
 
 import java.util.ArrayList;
