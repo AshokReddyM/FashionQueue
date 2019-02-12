@@ -27,6 +27,7 @@
         app:layout_constraintLeft_toRightOf="@id/offer_image">
 
         <TextView
+            android:id="@+id/tv_title"
             fontPath="@string/font_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
             tools:ignore="MissingPrefix" />
 
         <TextView
+            android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="50 % offer will expired in 5 d ays. Terms &amp; condition apply" />

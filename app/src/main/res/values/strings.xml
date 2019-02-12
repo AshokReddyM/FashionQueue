@@ -139,5 +139,14 @@
     <string name="sofware_engineer">Sofware Engineer</string>
     <string name="ashok_reddy_m">Ashok Reddy M</string>
 
+    <!-- Completed orders section -->
+    <string name="ordered_on">Ordered On</string>
+    <string name="items">Items</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="shipment">Shipment</string>
+    <string name="tax">Tax</string>
+    <string name="order_number">Order No. </string>
+    <string name="shipment_status">Shipment Status: </string>
+
 
 </resources>

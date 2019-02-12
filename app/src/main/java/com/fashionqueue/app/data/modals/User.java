@@ -1,28 +1,30 @@
 package com.fashionqueue.app.data.modals;
 
-public class Profile {
+public class User {
     private String first_name;
     private String last_name;
     private String mobile_number;
-    private int gender;
     private String email;
-    private String dob;
+    private String login_type; //1=email,2=phone,3=google,4=fb
+    private String social_id;
+    private String register_date;
 
-    public Profile(String first_name, String last_name, String mobile_number, int gender, String email, String dob) {
+    public User(String first_name, String last_name, String mobile_number, String email, String login_type, String social_id, String register_date) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.mobile_number = mobile_number;
-        this.gender = gender;
         this.email = email;
-        this.dob = dob;
+        this.login_type = login_type;
+        this.social_id = social_id;
+        this.register_date = register_date;
     }
 
-    public int getGender() {
-        return gender;
+    public String getSocial_id() {
+        return social_id;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public void setSocial_id(String social_id) {
+        this.social_id = social_id;
     }
 
     public String getEmail() {
@@ -57,11 +59,19 @@ public class Profile {
         this.mobile_number = mobile_number;
     }
 
-    public String getDob() {
-        return dob;
+    public String getLogin_type() {
+        return login_type;
     }
 
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setLogin_type(String login_type) {
+        this.login_type = login_type;
+    }
+
+    public String getRegister_date() {
+        return register_date;
+    }
+
+    public void setRegister_date(String register_date) {
+        this.register_date = register_date;
     }
 }

@@ -11,8 +11,8 @@ public class Product {
     private String product_quantity;
 
     public Product(String offer, String available_status, String product_type,
-                   String product_name, String product_id, String product_price,
-                   String product_description, String product_quantity) {
+                         String product_name, String product_id, String product_price,
+                         String product_description, String product_quantity) {
         this.offer = offer;
         this.available_status = available_status;
         this.product_type = product_type;

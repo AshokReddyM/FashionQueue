@@ -11,7 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.fashionqueue.app.R;
-import com.fashionqueue.app.data.modals.Product;
+import com.fashionqueue.app.data.local.DatabaseHelper;
+import com.fashionqueue.app.data.modals.Notifications;
 import com.fashionqueue.app.notifications.adapter.NotificationsAdapter;
 
 import java.util.ArrayList;
@@ -23,12 +24,11 @@ public class NotificationsActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    private NotificationsAdapter mAdapter;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    ArrayList<Product> productArrayList;
+    ArrayList<Notifications> notificationsList;
+    private NotificationsAdapter mAdapter;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +36,22 @@ public class NotificationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         ButterKnife.bind(this);
 
+
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Notifications");
 
+        db = new DatabaseHelper(this);
+        notificationsList=new ArrayList<>();
+        notificationsList.addAll(db.getAllNotifications());
 
-        mAdapter = new NotificationsAdapter(productArrayList);
+        mAdapter = new NotificationsAdapter(notificationsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
 
     }
 
@@ -66,7 +70,6 @@ public class NotificationsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
+    
 }
 

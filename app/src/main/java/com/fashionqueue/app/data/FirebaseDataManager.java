@@ -3,14 +3,18 @@ package com.fashionqueue.app.data;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.fashionqueue.app.data.modals.Profile;
+import com.fashionqueue.app.data.modals.User;
 import com.fashionqueue.app.interfaces.OnProfileCreateListener;
 import com.fashionqueue.app.login.login_activity.LoginActivity;
+import com.fashionqueue.app.utils.SharedPrefUtil;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class FirebaseDataManager {
 
@@ -54,23 +58,54 @@ public class FirebaseDataManager {
     }
 
 
-    public static void createProfile(final LoginActivity loginActivity, String userHashKey, String first_name, String last_name, int gender, String mobile, String dob, String email) {
-        mDatabaseRef=database.getReference().child(userHashKey);
-        Profile profile=new Profile(first_name,last_name,mobile,gender,email,dob);
-        mDatabaseRef.child("profile").setValue(profile, new DatabaseReference.CompletionListener() {
+    public static void createProfile(final LoginActivity loginActivity, final String social_id, String first_name, String last_name, String mobile, final String email, String login_type, String register_date) {
+        mDatabaseRef = database.getReference().child("users");
+        User user = new User(first_name, last_name, mobile, email, login_type, social_id, register_date);
+        mDatabaseRef.child(mDatabaseRef.push().getKey()).setValue(user, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 if (databaseError != null) {
+                    Toast.makeText(loginActivity, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
                 } else {
-                    ((OnProfileCreateListener)loginActivity).onProfileCreated();
+                    SharedPrefUtil.setBooleanPreference(loginActivity, "isLoggedIn", true);
+                    SharedPrefUtil.setStringPreference(loginActivity, "email", email);
+                    ((OnProfileCreateListener) loginActivity).onProfileCreated();
                 }
             }
         });
 
 
+    }
 
+
+    public static boolean checkUserIsExits(final String email_mobile) {
+        final boolean[] status = new boolean[1];
+        mDatabaseRef = database.getReference().child("users");
+        mDatabaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (data.child("email").getValue().equals(email_mobile)) {
+                        Log.d("Email ", String.valueOf(data.child("email").getValue()));
+                        status[0] = true;
+                    } else {
+                        status[0] = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+        return status[0];
     }
 }
+
 
 
 /*    public static void videosStructureInFireBase() {

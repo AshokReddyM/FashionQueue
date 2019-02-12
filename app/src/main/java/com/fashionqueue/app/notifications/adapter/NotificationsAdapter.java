@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fashionqueue.app.R;
-import com.fashionqueue.app.data.modals.Product;
+import com.fashionqueue.app.data.modals.Notifications;
 
 import java.util.ArrayList;
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ProductsAdapterVH> {
 
-    private ArrayList<Product> productsList;
+    private ArrayList<Notifications> notifications;
     private Context context;
 
-    public NotificationsAdapter(ArrayList<Product> productsList) {
-        this.productsList = productsList;
+    public NotificationsAdapter(ArrayList<Notifications> notifications) {
+        this.notifications = notifications;
     }
 
     @NonNull
@@ -31,13 +31,15 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductsAdapterVH productsAdapterVH, int i) {
+    public void onBindViewHolder(@NonNull ProductsAdapterVH vh, int i) {
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return notifications.size();
+
+
     }
 
     public class ProductsAdapterVH extends RecyclerView.ViewHolder {

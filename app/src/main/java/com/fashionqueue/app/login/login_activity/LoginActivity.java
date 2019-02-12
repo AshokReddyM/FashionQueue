@@ -16,10 +16,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -30,7 +31,6 @@ import com.fashionqueue.app.interfaces.OnProfileCreateListener;
 import com.fashionqueue.app.landing_page.MainActivity;
 import com.fashionqueue.app.login.ForgotPasswordActivity;
 import com.fashionqueue.app.login.SignupEmailAddress;
-import com.fashionqueue.app.utils.SharedPrefUtil;
 import com.fashionqueue.app.utils.UiUtils;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,11 +42,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -120,7 +121,35 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                LoginManager.getInstance().logOut();
+                                try {
+                                    if (!FirebaseDataManager.checkUserIsExits(object.getString("email"))) {
+                                        String email = object.getString("email");
+                                        String name = object.getString("name");
+                                        String social_id = object.getString("id");
+                                        FirebaseDataManager.createProfile(LoginActivity.this, social_id, name, "", "", email, "4", String.valueOf(System.currentTimeMillis()));
+
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                // Application code
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
@@ -147,6 +176,7 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
     }
+
 
     @Override
     public void onStart() {
@@ -208,31 +238,6 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
             }
         }
 
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-        showProgressDialog();
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                        hideProgressDialog();
-                    }
-                });
     }
 
 
@@ -297,22 +302,15 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         updateUI(null);
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(final FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            FirebaseUserMetadata metadata = mAuth.getCurrentUser().getMetadata();
-            if (metadata.getCreationTimestamp() == metadata.getLastSignInTimestamp()) {
-                FirebaseDataManager.createProfile(this, user.getUid(), user.getDisplayName(), "", 0, user.getPhoneNumber(), "", user.getEmail());
-            } else {
-                // This is an existing user, show them a welcome back screen.
-                SharedPrefUtil.setBooleanPreference(this, "isLoggedIn", true);
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
-            }
+
+
         }
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -351,12 +349,10 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
     }
 
 
-
     @Override
     public void onProfileCreated() {
-        SharedPrefUtil.setBooleanPreference(this, "isLoggedIn", true);
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
     }
 }
