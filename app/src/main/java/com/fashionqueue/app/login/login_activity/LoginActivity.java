@@ -27,6 +27,7 @@ import com.facebook.login.widget.LoginButton;
 import com.fashionqueue.app.R;
 import com.fashionqueue.app.base.BaseActivity;
 import com.fashionqueue.app.data.FirebaseDataManager;
+import com.fashionqueue.app.data.modals.Product;
 import com.fashionqueue.app.interfaces.OnProfileCreateListener;
 import com.fashionqueue.app.landing_page.MainActivity;
 import com.fashionqueue.app.login.ForgotPasswordActivity;
@@ -385,7 +386,7 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
                     Toast.makeText(LoginActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
                 } else {
                     FirebaseDataManager.createUser(LoginActivity.this, social_id, name, "", "", email, "4", String.valueOf(System.currentTimeMillis()));
-
+                    createProduct();
                 }
             }
 
@@ -396,5 +397,17 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         });
 
 
+    }
+
+
+    public void createProduct() {
+        Product product = new Product("", "Dress", "kurti", "", "", "L", "Regular",
+                "R11", "2", "Sleeveless", "Striped",
+                "Blue/Red", "Brand", "",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa67ZajqCK5iH4WLt13bcuI6B4pdR8YIAsyCVBJkzibeGq_BWQ",
+                "", "", "", "", "", "", "", "",
+                "", "", "", "This three piece set includes kurta with churidar and dupatta.Black embroidered cotton kurta with round neckline, churidar sleeve length and gota detailing.Black cotton churidar.Black chanderi dupatta with all over hand block print.", "Kurthi,Women", "", "");
+
+        FirebaseDataManager.createProduct(this, product);
     }
 }

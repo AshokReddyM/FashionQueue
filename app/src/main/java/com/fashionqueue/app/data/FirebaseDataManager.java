@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.fashionqueue.app.data.modals.Product;
 import com.fashionqueue.app.data.modals.Profile;
 import com.fashionqueue.app.data.modals.User;
 import com.fashionqueue.app.interfaces.OnProfileCreateListener;
@@ -54,6 +55,19 @@ public class FirebaseDataManager {
         });
     }
 
+
+    public static void createProduct(final LoginActivity loginActivity, Product product) {
+        mDatabaseRef = database.getReference().child("products");
+        mDatabaseRef.child(mDatabaseRef.push().getKey()).setValue(product, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                if (databaseError != null) {
+                    Toast.makeText(loginActivity, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                }
+            }
+        });
+    }
 
 
 
