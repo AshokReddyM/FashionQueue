@@ -45,6 +45,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -128,19 +134,18 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 LoginManager.getInstance().logOut();
-                                try {
-                                    if (!FirebaseDataManager.checkUserIsExits(object.getString("email"))) {
-                                        String email = object.getString("email");
-                                        String name = object.getString("name");
-                                        String social_id = object.getString("id");
-                                        FirebaseDataManager.createProfile(LoginActivity.this, social_id, name, "", "", email, "4", String.valueOf(System.currentTimeMillis()));
 
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "User already registered", Toast.LENGTH_SHORT).show();
-                                    }
+                                String social_id = null;
+                                try {
+                                    social_id = object.getString("id");
+                                    String email = object.getString("email");
+                                    String name = object.getString("name");
+
+                                    checkUserExist(social_id, email, name);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+
 
                                 // Application code
 
@@ -231,7 +236,13 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
+                String social_id = null;
+
+                social_id = account.getId();
+                String email = account.getEmail();
+                String name = account.getDisplayName();
+                checkUserExist(social_id, email, name);
+
             } catch (ApiException e) {
                 Log.w(TAG, "Google sign in failed", e);
                 updateUI(null);
@@ -354,5 +365,36 @@ public class LoginActivity extends BaseActivity implements LoginMvp, View.OnClic
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         Toast.makeText(this, "Logged Successfully", Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * checking user already exist or not
+     *
+     * @param social_id social id
+     * @param email     email
+     * @param name      name
+     */
+    public void checkUserExist(final String social_id, final String email, final String name) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+        Query query = databaseReference.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    Toast.makeText(LoginActivity.this, "User already exist", Toast.LENGTH_SHORT).show();
+                } else {
+                    FirebaseDataManager.createUser(LoginActivity.this, social_id, name, "", "", email, "4", String.valueOf(System.currentTimeMillis()));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                throw databaseError.toException(); // don't ignore errors
+            }
+        });
+
+
     }
 }
